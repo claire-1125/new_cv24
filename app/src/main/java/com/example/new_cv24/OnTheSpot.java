@@ -42,6 +42,8 @@ import java.net.URL;
 import java.util.List;
 import java.util.Locale;
 
+import static java.lang.Thread.sleep;
+
 
 public class OnTheSpot extends AppCompatActivity {
 
@@ -107,12 +109,6 @@ public class OnTheSpot extends AppCompatActivity {
                     //소켓 연결 성공 후 서버와 메세지를 주고받을 통로 구축
                     is = new DataInputStream(socket.getInputStream());
                     os = new DataOutputStream(socket.getOutputStream());
-
-                    OnTheSpot.this.runOnUiThread(new Runnable() {
-                        public void run() {
-                            Toast.makeText(getApplicationContext(),"서버와 연결 성공 및 is,os 구축",Toast.LENGTH_LONG).show();
-                        }
-                    });
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -147,22 +143,19 @@ public class OnTheSpot extends AppCompatActivity {
                 //해당 사건을 DB에 등록하는 과정
                 InsertData task = new InsertData();
                 task.execute("http://" + IP_ADDRESS + "/insert.php", DateTime, address);
+
+                try {
+                    sleep(3000);
+
+                    Intent HOME = new Intent(getApplicationContext(), HomePage.class);
+                    startActivity(HOME);
+                } catch (Exception e){
+
+                }
+
+
             }
         });
-
-        /* DB에 올린 이후 HomePage로 가는 intent가 실행되지 않는 상태
-        //alertDialog 띄우기
-        AlertDialog.Builder builder = new AlertDialog.Builder(OnTheSpot.this);
-        builder.setTitle("해결 완료").setMessage("홈으로 돌아가시겠습니까?");
-
-        builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent HOME = new Intent(getApplicationContext(), HomePage.class);
-                startActivity(HOME);
-            }
-        });*/
-
     }
 
     //String jsonStr = "{ 'addr': {'lat': 37.50497683800223, 'long': 126.9391820120632}, 'DateTime' : '2021-01-25 16:35:31'}";
