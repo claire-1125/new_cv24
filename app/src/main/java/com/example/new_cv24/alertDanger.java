@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
@@ -106,6 +107,14 @@ public class alertDanger extends AppCompatActivity {
                 });
 
                 AlertDialog alertDialog = builder.create();
+                alertDialog.setOnShowListener(new DialogInterface.OnShowListener(){
+                    @Override
+                    public void onShow(DialogInterface arg0){
+                        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#5187B1"));
+                        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.parseColor("#5187B1"));
+                    }
+                });
+
                 alertDialog.show();
             }
         });

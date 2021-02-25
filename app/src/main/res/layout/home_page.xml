@@ -20,21 +20,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--<Button
+    <Button
         android:id="@+id/database"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/round_btn"
+        android:layout_marginTop="100dp"
+        android:backgroundTint="#5187B1"
         android:text="사건기록조회"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header"
         android:textColor="@color/white"
-        android:textSize="22dp"/>-->
+        android:textSize="22dp"
+        app:cornerRadius="50dp"/>
 
-    <com.google.android.material.button.MaterialButton
+    <!--<com.google.android.material.button.MaterialButton
         android:id="@+id/database"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
@@ -48,7 +49,7 @@
         android:textSize="22dp"
         android:backgroundTint="#497393"
         app:rippleColor="#fff"
-        app:cornerRadius="50dp"/>
+        app:cornerRadius="50dp"/>-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

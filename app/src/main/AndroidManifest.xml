@@ -26,11 +26,9 @@
         </activity>
         <activity android:name=".AlreadySbOnTheSpot" />
         <activity android:name=".OnTheSpot" />
-        <activity android:name=".CallOutAuthentication" />
         <activity android:name=".PopUpSetting">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

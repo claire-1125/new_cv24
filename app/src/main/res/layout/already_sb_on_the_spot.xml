@@ -12,25 +12,23 @@
         android:id="@+id/explanation1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
         android:text="이미 다른 요원이 출동했습니다."
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/videoView"/>
 
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="700px"
-        android:layout_height="480px"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <VideoView
+        android:id="@+id/videoView"
+        android:layout_width="320dp"
+        android:layout_height="240dp"
+        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/explanation1"
-        app:layout_constraintVertical_bias="0.05"
-        app:srcCompat="@android:drawable/screen_background_dark_transparent" />
+        app:layout_constraintTop_toBottomOf="@+id/explanation1" />
 
     <TableLayout
         android:id="@+id/tableLayout"
@@ -40,7 +38,7 @@
         app:layout_constraintBottom_toTopOf="@+id/goHome"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/videoView"
         app:layout_constraintVertical_bias="0.5"
         >
 
@@ -127,6 +125,7 @@
         app:backgroundTint="#5187B1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:cornerRadius="30dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

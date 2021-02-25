@@ -8,9 +8,7 @@
     tools:context=".PopUpSetting"
     android:background="@drawable/bg_grad">
 
-
-
-    <!--<Button
+    <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,9 +17,12 @@
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />-->
+        app:layout_constraintStart_toStartOf="parent"
+        android:backgroundTint="#5187B1"
+        android:textColor="@color/white"
+        app:cornerRadius="30dp"/>
 
-    <com.google.android.material.button.MaterialButton
+    <!--<com.google.android.material.button.MaterialButton
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,6 +35,6 @@
         android:textColor="@color/white"
         android:backgroundTint="#497393"
         app:rippleColor="#fff"
-        app:cornerRadius="20dp"/>
+        app:cornerRadius="20dp"/>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

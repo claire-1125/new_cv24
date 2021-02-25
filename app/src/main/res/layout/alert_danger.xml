@@ -18,19 +18,17 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="700px"
-        android:layout_height="480px"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/videoView"/>
+<!--480/360-->
+    <VideoView
+        android:id="@+id/videoView"
+        android:layout_width="320dp"
+        android:layout_height="240dp"
+        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/explanation1"
-        app:layout_constraintVertical_bias="0.05"
-        app:srcCompat="@android:drawable/screen_background_dark_transparent" />
+        app:layout_constraintTop_toBottomOf="@+id/explanation1" />
 
     <TableLayout
         android:id="@+id/tableLayout"
@@ -40,7 +38,7 @@
         app:layout_constraintBottom_toTopOf="@+id/explanation2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/videoView"
         app:layout_constraintVertical_bias="0.5">
 
         <TableRow
@@ -116,14 +114,13 @@
         android:id="@+id/explanation2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="130dp"
         android:text="출동하시겠습니까?"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/goHome"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.502" />
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
 
     <Button
         android:id="@+id/goHome"
@@ -139,6 +136,9 @@
         app:backgroundTint="#5187B1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/explanation2"
+        app:cornerRadius="20dp"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
