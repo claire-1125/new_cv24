@@ -4,11 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Paint;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.VideoView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,6 +25,9 @@ public class AlreadySbOnTheSpot extends AppCompatActivity {
 
     /* 뒤로가기 버튼 두 번 누른 상황에 대한 처리를 해주는 객체 */
     BackPressCloseHandler backPressCloseHandler;
+
+    final static String url = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";
+    VideoView videoView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +64,9 @@ public class AlreadySbOnTheSpot extends AppCompatActivity {
             }
         });
 
+        videoView = findViewById(R.id.videoView);
+        loadVideo(videoView);
+
         Button home = (Button) findViewById(R.id.goHome);
         home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,5 +93,19 @@ public class AlreadySbOnTheSpot extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public void loadVideo(View view) {
+        videoView.setVideoURI(Uri.parse(url));
+        videoView.requestFocus();
+
+        //동영상 재생
+        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                videoView.start();
+                //Toast.makeText(getApplicationContext(), "Playing Video", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

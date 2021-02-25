@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.location.Address;
 import android.location.Geocoder;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -30,6 +32,7 @@ import java.util.Date;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.VideoView;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -68,6 +71,9 @@ public class OnTheSpot extends AppCompatActivity {
     DataInputStream is;
     DataOutputStream os;
 
+    final static String url = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";
+    VideoView videoView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +102,9 @@ public class OnTheSpot extends AppCompatActivity {
                 mapInfo(data);
             }
         });
+
+        videoView = findViewById(R.id.videoView);
+        loadVideo(videoView);
 
 
         //기기간 통신 스레드 시작
@@ -287,5 +296,19 @@ public class OnTheSpot extends AppCompatActivity {
             Log.d("getCurrentAddress",geoAddr.getAddressLine(0));
             return geoAddr.getAddressLine(0).toString();  //리턴값이 String
         }
+    }
+
+    public void loadVideo(View view) {
+        videoView.setVideoURI(Uri.parse(url));
+        videoView.requestFocus();
+
+        //동영상 재생
+        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                videoView.start();
+                //Toast.makeText(getApplicationContext(), "Playing Video", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

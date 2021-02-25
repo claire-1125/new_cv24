@@ -9,11 +9,15 @@ import android.graphics.Bitmap;
 
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.VideoView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,6 +34,9 @@ public class alertDanger extends AppCompatActivity {
     TextView DATETIME, ADDR;
     String DateTime;
     JSONObject jsonObject;
+
+    final static String url = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";
+    VideoView videoView;
 
     Bitmap bitmap = null;  //비디오 프레임(받은 직후는 byte배열 형태)을 bitmap으로 변환하여 저장하기 위한 변수
 
@@ -75,6 +82,8 @@ public class alertDanger extends AppCompatActivity {
             }
         });
 
+        videoView = findViewById(R.id.videoView);
+        loadVideo(videoView);
 
         //'출동' 버튼을 누르는 이벤트 처리
         Button callOut = findViewById(R.id.goHome);
@@ -145,5 +154,19 @@ public class alertDanger extends AppCompatActivity {
         Intent intent = new Intent(alertDanger.this, LocationMap.class);
         intent.putExtra("location info", message);
         startActivity(intent);
+    }
+
+    public void loadVideo(View view) {
+        videoView.setVideoURI(Uri.parse(url));
+        videoView.requestFocus();
+
+        //동영상 재생
+        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                videoView.start();
+                //Toast.makeText(getApplicationContext(), "Playing Video", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
