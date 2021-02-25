@@ -1,7 +1,9 @@
 package com.example.new_cv24;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.location.Address;
@@ -16,7 +18,11 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -43,7 +49,6 @@ public class OnTheSpot extends AppCompatActivity {
     String DateTime, longitude, latitude;
     TextView DATETIME, ADDR;
     Button complete;
-    long diff;
     Geocoder geocoder;
     Address geoAddr;
     public String address;
@@ -52,6 +57,14 @@ public class OnTheSpot extends AppCompatActivity {
 
     private static String IP_ADDRESS = "cv24.dothome.co.kr";
     private static String TAG = "phptest";
+    String sendMsg = "출동했습니다!";
+
+    Socket socket;  //클라이언트의 소켓
+    String ip = "192.168.0.75"; //서버의 IP주소
+    private static final int PORT = 5555; //서버에서 설정한 PORT
+
+    DataInputStream is;
+    DataOutputStream os;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +95,44 @@ public class OnTheSpot extends AppCompatActivity {
             }
         });
 
+
+        //기기간 통신 스레드 시작
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    //서버와 연결하는 소켓 생성
+                    socket = new Socket(InetAddress.getByName(ip), PORT);
+
+                    //소켓 연결 성공 후 서버와 메세지를 주고받을 통로 구축
+                    is = new DataInputStream(socket.getInputStream());
+                    os = new DataOutputStream(socket.getOutputStream());
+
+                    OnTheSpot.this.runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast.makeText(getApplicationContext(),"서버와 연결 성공 및 is,os 구축",Toast.LENGTH_LONG).show();
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                //이거 써야하나?
+                if(os == null) return;   //서버와 연결되어 있지 않다면 전송불가
+
+                //메시지를 보내는 쪽은 while(true) 안에 넣을 필요가 없고
+                //메시지를 받는 쪽이 while(true) 안에 넣는 것이다.
+                //String sendMsg = "출동했습니다!";
+                try {
+                    os.writeUTF(sendMsg);  //서버로 UTF 이용하여 메세지 보내기 (한글 전송가능)
+                    os.flush();        //다음 메세지 전송을 위해 연결통로의 버퍼 지워주기
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }//run method...
+        }).start();//Thread 실행..
+
         //'해결완료' 버튼을 누르는 순간 해당 사건은 DB에 저장된다.
         complete = findViewById(R.id.complete);
         complete.setOnClickListener(new View.OnClickListener() {
@@ -98,6 +149,20 @@ public class OnTheSpot extends AppCompatActivity {
                 task.execute("http://" + IP_ADDRESS + "/insert.php", DateTime, address);
             }
         });
+
+        /* DB에 올린 이후 HomePage로 가는 intent가 실행되지 않는 상태
+        //alertDialog 띄우기
+        AlertDialog.Builder builder = new AlertDialog.Builder(OnTheSpot.this);
+        builder.setTitle("해결 완료").setMessage("홈으로 돌아가시겠습니까?");
+
+        builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent HOME = new Intent(getApplicationContext(), HomePage.class);
+                startActivity(HOME);
+            }
+        });*/
+
     }
 
     //String jsonStr = "{ 'addr': {'lat': 37.50497683800223, 'long': 126.9391820120632}, 'DateTime' : '2021-01-25 16:35:31'}";

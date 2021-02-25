@@ -55,9 +55,6 @@ public class LocationMap extends AppCompatActivity implements OnMapReadyCallback
         String data = intent.getStringExtra("location info");
         JSONparse(data);
 
-        TextView textView = findViewById(R.id.textView);
-        textView.setText(latitude + " , " + longitude);
-
         LATITUDE = Double.parseDouble(latitude);
         LONGITUDE = Double.parseDouble(longitude);
 

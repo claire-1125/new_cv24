@@ -13,13 +13,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.NoActionBar"
         android:usesCleartextTraffic="true">
-
+        <activity android:name=".Waiting"></activity>
         <activity android:name=".Board" />
         <activity android:name=".HomePage">
-            <!--<intent-filter>
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
         <activity android:name=".AlreadySbOnTheSpot" />
         <activity android:name=".OnTheSpot" />
@@ -27,6 +30,7 @@
         <activity android:name=".PopUpSetting">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -38,6 +42,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${mapsApiKey}" />
-
     </application>
+
 </manifest>

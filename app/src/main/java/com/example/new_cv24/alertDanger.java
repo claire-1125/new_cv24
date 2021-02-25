@@ -29,8 +29,6 @@ public class alertDanger extends AppCompatActivity {
     TextView DATETIME, ADDR;
     String DateTime;
     JSONObject jsonObject;
-    Server server;
-    Client client;
 
     Bitmap bitmap = null;  //비디오 프레임(받은 직후는 byte배열 형태)을 bitmap으로 변환하여 저장하기 위한 변수
 
@@ -82,41 +80,26 @@ public class alertDanger extends AppCompatActivity {
         callOut.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                /*Intent intent = new Intent(getApplicationContext(), OnTheSpot.class);
-                intent.putExtra("violence case info", data);
-                startActivity(intent);*/
-
-
                 //alertDialog 띄우기
                 AlertDialog.Builder builder = new AlertDialog.Builder(alertDanger.this);
                 builder.setTitle("현장 출동").setMessage("정말 출동하시겠습니까?");
 
-                //1. '네'를 누른 상황 : 클라이언트
-                //1) 서버 측으로 JSON 데이터 보내기
-                //2) OnTheSpot으로 이동
+                //1. '네'를 누른 상황 : 클라이언트 → OnTheSpot으로 이동
                 builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        /*client = new Client(data);  //JSON 데이터 넘겨주면서 스레드 생성
-                        client.start();*/
-                        
                         Intent intent = new Intent(getApplicationContext(), OnTheSpot.class);
                         intent.putExtra("violence case info", data);
                         startActivity(intent);
                     }
                 });
 
-                //2. '아니오'를 누른 상황 : 서버
-                //1) 서버 세팅 시작하고 클라이언트 기다리기
-                //2) 클라이언트로부터 JSON 데이터 받고 AlreadySbOnTheSpot으로 이동
+                //2. '아니오'를 누른 상황 : 서버 → Waiting으로 이동
+                //*Waiting 엑티비티에서 클라이언트의 메시지 수신 대기
                 builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        /*server = new Server();  //서버소캣 생성
-                        server.start();*/
-
-                        Intent intent = new Intent(getApplicationContext(), AlreadySbOnTheSpot.class);
-                        //intent.putExtra("violence case info", server.recvMsg);
+                        Intent intent = new Intent(getApplicationContext(), Waiting.class);
                         intent.putExtra("violence case info", data);
                         startActivity(intent);
                     }
