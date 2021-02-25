@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- LinearLayout 속성 중에 android:layout_margin="15dp"-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Board"
+    android:padding="10dp"
+    android:background="@drawable/bg_grad">
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_height="475dp"
+        android:layout_width="match_parent"
+        android:id="@+id/listView_main_list"
+        android:layout_margin="5dp"
+        android:layout_weight="6"
+        android:padding="5dp"/>
+
+</LinearLayout>
