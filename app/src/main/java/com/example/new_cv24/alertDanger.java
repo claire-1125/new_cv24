@@ -38,21 +38,9 @@ public class alertDanger extends AppCompatActivity {
     String DateTime;
     JSONObject jsonObject;
 
-    //final static String url = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";
-    //final static String url = "192.168.0.7:5000";
-    //VideoView videoView;
-
-    //Bitmap bitmap = null;  //비디오 프레임(받은 직후는 byte배열 형태)을 bitmap으로 변환하여 저장하기 위한 변수
-
     /* 뒤로가기 버튼 두 번 누른 상황에 대한 처리를 해주는 객체 */
     private BackPressCloseHandler backPressCloseHandler;
 
-    /* 비디오 스트리밍에 관한 변수 */
-    //ImageView VIDEO;
-    //VideoView VIDEO;  //비디오 객체
-    //final String path = "udp://192.168.0.7:9091";  //비디오 받는 서버 주소 및 포트
-    //MediaController mediaController;
-    //Uri video;
 
     private WebView mWebView;
     private WebSettings mWebSettings;
@@ -90,6 +78,7 @@ public class alertDanger extends AppCompatActivity {
         });
 
 
+        //URL 이용하여 실시간 영상 띄우기
         mWebView = (WebView)findViewById(R.id.webview_login);
         mWebView.setWebViewClient(new WebViewClient());
         mWebSettings = mWebView.getSettings();
@@ -97,12 +86,8 @@ public class alertDanger extends AppCompatActivity {
         mWebView.loadUrl("http://192.168.0.7:5000/");
 
 
-
-        //videoView = findViewById(R.id.videoView);
-        //loadVideo(videoView);
-
         //'출동' 버튼을 누르는 이벤트 처리
-        Button callOut = findViewById(R.id.goHome);
+        Button callOut = findViewById(R.id.callOut);
         callOut.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -143,6 +128,18 @@ public class alertDanger extends AppCompatActivity {
                 alertDialog.show();
             }
         });
+
+
+        //위험하지 않다고 판단되면 그냥 홈으로 돌아간다...
+        Button notDanger = findViewById(R.id.notDanger);
+        notDanger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), HomePage.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     //String jsonStr = "{ 'addr': {'lat': 37.50497683800223, 'long': 126.9391820120632}, 'DateTime' : '2021-01-25 16:35:31'}";
@@ -172,17 +169,4 @@ public class alertDanger extends AppCompatActivity {
         startActivity(intent);
     }
 
-    /*public void loadVideo(View view) {
-        videoView.setVideoURI(Uri.parse(url));
-        videoView.requestFocus();
-
-        //동영상 재생
-        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                videoView.start();
-                //Toast.makeText(getApplicationContext(), "Playing Video", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }*/
 }

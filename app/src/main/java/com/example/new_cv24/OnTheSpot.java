@@ -74,10 +74,6 @@ public class OnTheSpot extends AppCompatActivity {
     DataInputStream is;
     DataOutputStream os;
 
-    //final static String url = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";
-    //final static String url = "192.168.0.7:5000";
-    //VideoView videoView;
-
     private WebView mWebView;
     private WebSettings mWebSettings;
 
@@ -110,14 +106,13 @@ public class OnTheSpot extends AppCompatActivity {
             }
         });
 
+
+        //URL 이용하여 실시간 영상 띄우기
         mWebView = (WebView)findViewById(R.id.webview_login);
         mWebView.setWebViewClient(new WebViewClient());
         mWebSettings = mWebView.getSettings();
         mWebSettings.setJavaScriptEnabled(true);
         mWebView.loadUrl("http://192.168.0.7:5000/");
-
-        /*videoView = findViewById(R.id.videoView);
-        loadVideo(videoView);*/
 
 
         //기기간 통신 스레드 시작
@@ -311,17 +306,4 @@ public class OnTheSpot extends AppCompatActivity {
         }
     }
 
-    /*public void loadVideo(View view) {
-        videoView.setVideoURI(Uri.parse(url));
-        videoView.requestFocus();
-
-        //동영상 재생
-        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                videoView.start();
-                //Toast.makeText(getApplicationContext(), "Playing Video", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }*/
 }

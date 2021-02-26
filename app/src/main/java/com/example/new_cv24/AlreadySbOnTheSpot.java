@@ -29,10 +29,6 @@ public class AlreadySbOnTheSpot extends AppCompatActivity {
     /* 뒤로가기 버튼 두 번 누른 상황에 대한 처리를 해주는 객체 */
     BackPressCloseHandler backPressCloseHandler;
 
-    //final static String url = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";
-    //final static String url = "192.168.0.7:5000";
-    //VideoView videoView;
-
     private WebView mWebView;
     private WebSettings mWebSettings;
 
@@ -47,8 +43,6 @@ public class AlreadySbOnTheSpot extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
-        //해당 화면은 출동을 하지 않은 경찰에게 뜨는 화면이므로
-        //출동 버튼을 누른 경찰이 '보내준 UDP 데이터'를 화면에 띄워야 한다.
 
         //뒤로가기 버튼 두 번 누르면 어플 종료하는 객체 생성
         backPressCloseHandler = new BackPressCloseHandler(this);
@@ -71,10 +65,8 @@ public class AlreadySbOnTheSpot extends AppCompatActivity {
             }
         });
 
-        /*//URL 상의 영상을 가져와 재생한다.
-        videoView = findViewById(R.id.videoView);
-        loadVideo(videoView);*/
 
+        //URL 이용하여 실시간 영상 띄우기
         mWebView = (WebView)findViewById(R.id.webview_login);
         mWebView.setWebViewClient(new WebViewClient());
         mWebSettings = mWebView.getSettings();
@@ -111,17 +103,4 @@ public class AlreadySbOnTheSpot extends AppCompatActivity {
         }
     }
 
-    /*public void loadVideo(View view) {
-        videoView.setVideoURI(Uri.parse(url));
-        videoView.requestFocus();
-
-        //동영상 재생
-        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                videoView.start();
-                //Toast.makeText(getApplicationContext(), "Playing Video", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }*/
 }
