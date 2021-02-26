@@ -9,6 +9,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,8 +29,12 @@ public class AlreadySbOnTheSpot extends AppCompatActivity {
     /* 뒤로가기 버튼 두 번 누른 상황에 대한 처리를 해주는 객체 */
     BackPressCloseHandler backPressCloseHandler;
 
-    final static String url = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";
-    VideoView videoView;
+    //final static String url = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";
+    //final static String url = "192.168.0.7:5000";
+    //VideoView videoView;
+
+    private WebView mWebView;
+    private WebSettings mWebSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,9 +71,18 @@ public class AlreadySbOnTheSpot extends AppCompatActivity {
             }
         });
 
+        /*//URL 상의 영상을 가져와 재생한다.
         videoView = findViewById(R.id.videoView);
-        loadVideo(videoView);
+        loadVideo(videoView);*/
 
+        mWebView = (WebView)findViewById(R.id.webview_login);
+        mWebView.setWebViewClient(new WebViewClient());
+        mWebSettings = mWebView.getSettings();
+        mWebSettings.setJavaScriptEnabled(true);
+        mWebView.loadUrl("http://192.168.0.7:5000/");
+
+
+        //'홈으로' 버튼을 누르면 홈화면으로 이동한다.
         Button home = (Button) findViewById(R.id.goHome);
         home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,7 +111,7 @@ public class AlreadySbOnTheSpot extends AppCompatActivity {
         }
     }
 
-    public void loadVideo(View view) {
+    /*public void loadVideo(View view) {
         videoView.setVideoURI(Uri.parse(url));
         videoView.requestFocus();
 
@@ -107,5 +123,5 @@ public class AlreadySbOnTheSpot extends AppCompatActivity {
                 //Toast.makeText(getApplicationContext(), "Playing Video", Toast.LENGTH_SHORT).show();
             }
         });
-    }
+    }*/
 }

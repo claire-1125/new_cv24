@@ -13,6 +13,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -71,8 +74,12 @@ public class OnTheSpot extends AppCompatActivity {
     DataInputStream is;
     DataOutputStream os;
 
-    final static String url = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";
-    VideoView videoView;
+    //final static String url = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";
+    //final static String url = "192.168.0.7:5000";
+    //VideoView videoView;
+
+    private WebView mWebView;
+    private WebSettings mWebSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,8 +110,14 @@ public class OnTheSpot extends AppCompatActivity {
             }
         });
 
-        videoView = findViewById(R.id.videoView);
-        loadVideo(videoView);
+        mWebView = (WebView)findViewById(R.id.webview_login);
+        mWebView.setWebViewClient(new WebViewClient());
+        mWebSettings = mWebView.getSettings();
+        mWebSettings.setJavaScriptEnabled(true);
+        mWebView.loadUrl("http://192.168.0.7:5000/");
+
+        /*videoView = findViewById(R.id.videoView);
+        loadVideo(videoView);*/
 
 
         //기기간 통신 스레드 시작
@@ -298,7 +311,7 @@ public class OnTheSpot extends AppCompatActivity {
         }
     }
 
-    public void loadVideo(View view) {
+    /*public void loadVideo(View view) {
         videoView.setVideoURI(Uri.parse(url));
         videoView.requestFocus();
 
@@ -310,5 +323,5 @@ public class OnTheSpot extends AppCompatActivity {
                 //Toast.makeText(getApplicationContext(), "Playing Video", Toast.LENGTH_SHORT).show();
             }
         });
-    }
+    }*/
 }

@@ -14,6 +14,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,10 +38,11 @@ public class alertDanger extends AppCompatActivity {
     String DateTime;
     JSONObject jsonObject;
 
-    final static String url = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";
-    VideoView videoView;
+    //final static String url = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";
+    //final static String url = "192.168.0.7:5000";
+    //VideoView videoView;
 
-    Bitmap bitmap = null;  //비디오 프레임(받은 직후는 byte배열 형태)을 bitmap으로 변환하여 저장하기 위한 변수
+    //Bitmap bitmap = null;  //비디오 프레임(받은 직후는 byte배열 형태)을 bitmap으로 변환하여 저장하기 위한 변수
 
     /* 뒤로가기 버튼 두 번 누른 상황에 대한 처리를 해주는 객체 */
     private BackPressCloseHandler backPressCloseHandler;
@@ -49,6 +53,9 @@ public class alertDanger extends AppCompatActivity {
     //final String path = "udp://192.168.0.7:9091";  //비디오 받는 서버 주소 및 포트
     //MediaController mediaController;
     //Uri video;
+
+    private WebView mWebView;
+    private WebSettings mWebSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,8 +89,17 @@ public class alertDanger extends AppCompatActivity {
             }
         });
 
-        videoView = findViewById(R.id.videoView);
-        loadVideo(videoView);
+
+        mWebView = (WebView)findViewById(R.id.webview_login);
+        mWebView.setWebViewClient(new WebViewClient());
+        mWebSettings = mWebView.getSettings();
+        mWebSettings.setJavaScriptEnabled(true);
+        mWebView.loadUrl("http://192.168.0.7:5000/");
+
+
+
+        //videoView = findViewById(R.id.videoView);
+        //loadVideo(videoView);
 
         //'출동' 버튼을 누르는 이벤트 처리
         Button callOut = findViewById(R.id.goHome);
@@ -156,7 +172,7 @@ public class alertDanger extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void loadVideo(View view) {
+    /*public void loadVideo(View view) {
         videoView.setVideoURI(Uri.parse(url));
         videoView.requestFocus();
 
@@ -168,5 +184,5 @@ public class alertDanger extends AppCompatActivity {
                 //Toast.makeText(getApplicationContext(), "Playing Video", Toast.LENGTH_SHORT).show();
             }
         });
-    }
+    }*/
 }
